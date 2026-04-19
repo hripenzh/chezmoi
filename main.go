@@ -17,6 +17,8 @@ func main() {
 		BuiltBy: "source",
 	}, os.Args[1:]); err != nil {
 		fmt.Fprintf(os.Stderr, "chezmoi: error: %v\n", err)
+		// Exit with code 1 on error, but print a hint to run with --verbose for more details.
+		fmt.Fprintf(os.Stderr, "chezmoi: run with --verbose for more details\n")
 		os.Exit(1)
 	}
 }
