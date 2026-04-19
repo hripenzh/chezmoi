@@ -29,8 +29,8 @@ const SourceDirName = ".local/share/chezmoi"
 const ConfigDirName = ".config/chezmoi"
 
 // ConfigFileName is the default name of the chezmoi config file.
-// Prefer chezmoi.toml over chezmoi.yaml for consistency with upstream defaults.
-const ConfigFileName = "chezmoi.toml"
+// Prefer chezmoi.yaml for readability; override with chezmoi.toml if needed.
+const ConfigFileName = "chezmoi.yaml"
 
 // ErrNotAGitRepo is returned when the source directory is not a git repository.
 var ErrNotAGitRepo = errors.New("not a git repository")
