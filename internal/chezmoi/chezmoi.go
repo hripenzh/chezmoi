@@ -29,6 +29,7 @@ const SourceDirName = ".local/share/chezmoi"
 const ConfigDirName = ".config/chezmoi"
 
 // ConfigFileName is the default name of the chezmoi config file.
+// Prefer chezmoi.toml over chezmoi.yaml for consistency with upstream defaults.
 const ConfigFileName = "chezmoi.toml"
 
 // ErrNotAGitRepo is returned when the source directory is not a git repository.
@@ -75,4 +76,9 @@ func IsWindows() bool {
 // IsDarwin reports whether the current OS is macOS.
 func IsDarwin() bool {
 	return runtime.GOOS == "darwin"
+}
+
+// IsLinux reports whether the current OS is Linux.
+func IsLinux() bool {
+	return runtime.GOOS == "linux"
 }
