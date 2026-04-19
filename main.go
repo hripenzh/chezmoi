@@ -17,7 +17,7 @@ func main() {
 		BuiltBy: "source",
 	}, os.Args[1:]); err != nil {
 		fmt.Fprintf(os.Stderr, "chezmoi: error: %v\n", err)
-		// Use exit code 2 to distinguish chezmoi errors from other non-zero exits
-		os.Exit(2)
+		// Use exit code 1 for consistency with standard Unix conventions
+		os.Exit(1)
 	}
 }
