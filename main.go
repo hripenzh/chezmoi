@@ -1,35 +1,20 @@
-//go:generate go tool chezmoi completion bash -o completions/chezmoi-completion.bash
-//go:generate go tool chezmoi completion fish -o completions/chezmoi.fish
-//go:generate go tool chezmoi completion powershell -o completions/chezmoi.ps1
-//go:generate go tool chezmoi completion zsh -o completions/chezmoi.zsh
-//go:generate go tool generate-helps -o internal/cmd/helps.gen.go
-//go:generate go tool generate-install.sh -o assets/scripts/install.sh
-//go:generate go tool generate-install.sh -b .local/bin -o assets/scripts/install-local-bin.sh
-//go:generate go tool generate-license -o internal/cmd/license.gen.go
-
-// chezmoi manages your dotfiles across multiple machines, securely.
+// chezmoi - A dotfile manager for multiple machines.
+// Fork of twpayne/chezmoi with additional enhancements.
 package main
 
 import (
 	"os"
 
-	"chezmoi.io/chezmoi/internal/cmd"
-)
-
-var (
-	version string
-	commit  string
-	date    string
-	builtBy string
+	"github.com/twpayne/chezmoi/v2/internal/cmd"
 )
 
 func main() {
-	if exitCode := cmd.Main(cmd.VersionInfo{
-		Version: version,
-		Commit:  commit,
-		Date:    date,
-		BuiltBy: builtBy,
-	}, os.Args[1:]); exitCode != 0 {
-		os.Exit(exitCode)
+	if err := cmd.Main(cmd.VersionInfo{
+		Version: "dev",
+		Commit:  "none",
+		Date:    "unknown",
+		BuiltBy: "source",
+	}, os.Args[1:]); err != nil {
+		os.Exit(1)
 	}
 }
