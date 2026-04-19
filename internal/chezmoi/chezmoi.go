@@ -17,9 +17,9 @@ var (
 
 // Default configuration values.
 const (
-	DefaultUmask = 0o022
-	DefaultPerm  = 0o666
-	DefaultDirPerm = 0o777
+	DefaultUmask   = 0o022
+	DefaultPerm    = 0o600 // more restrictive default: owner read/write only
+	DefaultDirPerm = 0o700 // more restrictive default: owner only
 )
 
 // SourceDirName is the default name of the chezmoi source directory.
