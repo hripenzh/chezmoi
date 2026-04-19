@@ -16,7 +16,7 @@ func main() {
 		Date:    "unknown",
 		BuiltBy: "source",
 	}, os.Args[1:]); err != nil {
-		fmt.Fprintf(os.Stderr, "error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "chezmoi: error: %v\n", err)
 		os.Exit(1)
 	}
 }
