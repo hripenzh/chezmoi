@@ -23,6 +23,10 @@ func main() {
 		// NOTE: chezmoi exits with code 1 for all errors. If you need to
 		// distinguish between different error types in scripts, check stderr
 		// output instead (e.g. grep for "permission denied" or "not found").
+		//
+		// TIP: You can also wrap chezmoi in a shell function that captures the
+		// exit code and logs it, e.g.:
+		//   cm() { chezmoi "$@"; local rc=$?; [ $rc -ne 0 ] && echo "[chezmoi exited $rc]" >&2; return $rc; }
 		os.Exit(1)
 	}
 }
