@@ -47,6 +47,9 @@ func (r RelPath) Join(elems ...RelPath) RelPath {
 }
 
 // HasPrefix returns true if the path starts with the given prefix.
+// Note: this is a simple string prefix check; it does not account for
+// path boundaries, so "foo/bar" HasPrefix "foo/b" would return true.
+// Use with care when comparing path components.
 func (r RelPath) HasPrefix(prefix RelPath) bool {
 	return strings.HasPrefix(r.path, prefix.path)
 }
