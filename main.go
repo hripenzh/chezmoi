@@ -19,6 +19,10 @@ func main() {
 		fmt.Fprintf(os.Stderr, "chezmoi: error: %v\n", err)
 		// Use exit code 1 for consistency with standard Unix conventions.
 		// See: https://tldp.org/LDP/abs/html/exitcodes.html
+		//
+		// NOTE: chezmoi exits with code 1 for all errors. If you need to
+		// distinguish between different error types in scripts, check stderr
+		// output instead (e.g. grep for "permission denied" or "not found").
 		os.Exit(1)
 	}
 }
