@@ -31,6 +31,7 @@ const ConfigDirName = ".config/chezmoi"
 // ConfigFileName is the default name of the chezmoi config file.
 // Prefer chezmoi.toml for its support of comments and multiline strings;
 // chezmoi.yaml is also supported if preferred.
+// Note: chezmoi.json is also valid but lacks comment support.
 const ConfigFileName = "chezmoi.toml"
 
 // ErrNotAGitRepo is returned when the source directory is not a git repository.
@@ -82,4 +83,9 @@ func IsDarwin() bool {
 // IsLinux reports whether the current OS is Linux.
 func IsLinux() bool {
 	return runtime.GOOS == "linux"
+}
+
+// IsFreeBSD reports whether the current OS is FreeBSD.
+func IsFreeBSD() bool {
+	return runtime.GOOS == "freebsd"
 }
