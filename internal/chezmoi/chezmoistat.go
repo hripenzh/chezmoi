@@ -79,6 +79,8 @@ func (s ChezmoiStat) IsSymlink() bool {
 // Type returns the SourceStateEntryType for this stat.
 // Note: isDir is checked first because on some systems a directory entry
 // may also have other mode bits set that could cause ambiguity.
+// Note: device files, named pipes, and other special files fall through to
+// Absent since chezmoi does not manage them.
 func (s ChezmoiStat) Type() SourceStateEntryType {
 	switch {
 	case s.isDir:
