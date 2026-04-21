@@ -104,3 +104,10 @@ func (s ChezmoiStat) Perm() fs.FileMode {
 func (s ChezmoiStat) IsEmpty() bool {
 	return s.size == 0
 }
+
+// IsExecutable reports whether the file has any executable permission bits set.
+// This is a convenience helper I added to avoid repeating the mode mask check
+// in multiple places when iterating over source state entries.
+func (s ChezmoiStat) IsExecutable() bool {
+	return s.mode&0o111 != 0
+}
