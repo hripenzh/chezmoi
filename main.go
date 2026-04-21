@@ -27,6 +27,10 @@ func main() {
 		// TIP: You can also wrap chezmoi in a shell function that captures the
 		// exit code and logs it, e.g.:
 		//   cm() { chezmoi "$@"; local rc=$?; [ $rc -ne 0 ] && echo "[chezmoi exited $rc]" >&2; return $rc; }
+		//
+		// PERSONAL NOTE: I use exit code 2 to signal usage/argument errors in
+		// my own scripts, but chezmoi uses 1 for everything. Keep this in mind
+		// when writing wrappers around chezmoi commands.
 		os.Exit(1)
 	}
 }
