@@ -46,12 +46,18 @@ func (r RelPath) Join(elems ...RelPath) RelPath {
 	return NewRelPath(filepath.Join(strs...))
 }
 
-// HasPrefix returns true if the path starts with the given prefix.
-// Note: this is a simple string prefix check; it does not account for
-// path boundaries, so "foo/bar" HasPrefix "foo/b" would return true.
-// Use with care when comparing path components.
+// HasPrefix returns true if the path starts with the given prefix followed by
+// a path separator, or if the path equals the prefix exactly. This ensures
+// we don't get false positives when one path is a prefix of another path's
+// component name (e.g. "foo/bar" should not HasPrefix "foo/b").
 func (r RelPath) HasPrefix(prefix RelPath) bool {
-	return strings.HasPrefix(r.path, prefix.path)
+	if prefix.path == "" {
+		return true
+	}
+	if r.path == prefix.path {
+		return true
+	}
+	return strings.HasPrefix(r.path, prefix.path+"/")
 }
 
 // Empty returns true if the path is empty.
@@ -117,8 +123,4 @@ func (a AbsPath) Join(relPaths ...RelPath) AbsPath {
 	return NewAbsPath(filepath.Join(strs...))
 }
 
-// JoinString appends the given string path elements to the AbsPath.
-func (a AbsPath) JoinString(elems ...string) AbsPath {
-	parts := append([]string{a.path}, elems...)
-	return NewAbsPath(filepath.Join(parts...))
-}
+// JoinString appends the given s
