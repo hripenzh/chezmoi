@@ -78,6 +78,12 @@ func (r RelPath) TrimPrefix(prefix RelPath) RelPath {
 	return NewRelPath(strings.TrimPrefix(r.path, prefix.path+"/"))
 }
 
+// Split returns the directory and base components of the path as separate RelPaths.
+// This is a convenience wrapper around Dir() and Base().
+func (r RelPath) Split() (RelPath, string) {
+	return r.Dir(), r.Base()
+}
+
 // NewSourceRelPath returns a new SourceRelPath.
 func NewSourceRelPath(relPath RelPath, isDir bool) SourceRelPath {
 	return SourceRelPath{
@@ -111,14 +117,4 @@ type AbsPath struct {
 // resolves "." and ".." elements, etc.) before converting to forward slashes.
 func NewAbsPath(path string) AbsPath {
 	return AbsPath{path: filepath.ToSlash(filepath.Clean(path))}
-}
-
-// String returns the string representation of the AbsPath.
-func (a AbsPath) String() string {
-	return a.path
-}
-
-// Base returns the last element of the path.
-func (a AbsPath) Base() string {
-	return filepath.Base(a.path)
 }
