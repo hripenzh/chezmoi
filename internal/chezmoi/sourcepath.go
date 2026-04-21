@@ -84,6 +84,15 @@ func (r RelPath) Split() (RelPath, string) {
 	return r.Dir(), r.Base()
 }
 
+// Depth returns the number of path components in the RelPath.
+// An empty path has depth 0, and a single component has depth 1.
+func (r RelPath) Depth() int {
+	if r.path == "" {
+		return 0
+	}
+	return strings.Count(r.path, "/") + 1
+}
+
 // NewSourceRelPath returns a new SourceRelPath.
 func NewSourceRelPath(relPath RelPath, isDir bool) SourceRelPath {
 	return SourceRelPath{
@@ -113,8 +122,4 @@ type AbsPath struct {
 }
 
 // NewAbsPath returns a new AbsPath for the given path string.
-// filepath.Clean is applied to normalize the path (removes redundant separators,
-// resolves "." and ".." elements, etc.) before converting to forward slashes.
-func NewAbsPath(path string) AbsPath {
-	return AbsPath{path: filepath.ToSlash(filepath.Clean(path))}
-}
+// filepath.Clean is appl
