@@ -26,6 +26,8 @@ type ChezmoiStat struct {
 }
 
 // NewChezmoiStat returns a new ChezmoiStat from an fs.FileInfo.
+// Returns a zero-value ChezmoiStat if info is nil, which will have
+// SourceStateEntryTypeAbsent as its Type().
 func NewChezmoiStat(info fs.FileInfo) ChezmoiStat {
 	if info == nil {
 		return ChezmoiStat{}
@@ -75,6 +77,8 @@ func (s ChezmoiStat) IsSymlink() bool {
 }
 
 // Type returns the SourceStateEntryType for this stat.
+// Note: isDir is checked first because on some systems a directory entry
+// may also have other mode bits set that could cause ambiguity.
 func (s ChezmoiStat) Type() SourceStateEntryType {
 	switch {
 	case s.isDir:
