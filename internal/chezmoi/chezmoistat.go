@@ -112,9 +112,9 @@ func (s ChezmoiStat) IsExecutable() bool {
 	return s.mode&0o111 != 0
 }
 
-// IsWritable reports whether the file has any write permission bits set.
-// Handy for quickly checking if a source file is accidentally read-only,
-// which can happen when cloning dotfiles repos with certain umask settings.
+// IsWritable reports whether the file has any writable permission bits set.
+// Checks owner, group, and other write bits (0o222). Note that this does not
+// account for ACLs or filesystem-level read-only mounts.
 func (s ChezmoiStat) IsWritable() bool {
 	return s.mode&0o222 != 0
 }
