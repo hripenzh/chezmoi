@@ -65,6 +65,18 @@ func (r RelPath) Empty() bool {
 	return r.path == ""
 }
 
+// TrimPrefix returns a new RelPath with the given prefix removed.
+// If the path does not have the prefix, the original path is returned unchanged.
+func (r RelPath) TrimPrefix(prefix RelPath) RelPath {
+	if !r.HasPrefix(prefix) {
+		return r
+	}
+	if r.path == prefix.path {
+		return NewRelPath("")
+	}
+	return NewRelPath(strings.TrimPrefix(r.path, prefix.path+"/"))
+}
+
 // NewSourceRelPath returns a new SourceRelPath.
 func NewSourceRelPath(relPath RelPath, isDir bool) SourceRelPath {
 	return SourceRelPath{
@@ -122,5 +134,3 @@ func (a AbsPath) Join(relPaths ...RelPath) AbsPath {
 	}
 	return NewAbsPath(filepath.Join(strs...))
 }
-
-// JoinString appends the given s
