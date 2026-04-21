@@ -50,6 +50,7 @@ func (r RelPath) Join(elems ...RelPath) RelPath {
 // a path separator, or if the path equals the prefix exactly. This ensures
 // we don't get false positives when one path is a prefix of another path's
 // component name (e.g. "foo/bar" should not HasPrefix "foo/b").
+// Note: an empty prefix always matches any path.
 func (r RelPath) HasPrefix(prefix RelPath) bool {
 	if prefix.path == "" {
 		return true
@@ -106,6 +107,8 @@ type AbsPath struct {
 }
 
 // NewAbsPath returns a new AbsPath for the given path string.
+// filepath.Clean is applied to normalize the path (removes redundant separators,
+// resolves "." and ".." elements, etc.) before converting to forward slashes.
 func NewAbsPath(path string) AbsPath {
 	return AbsPath{path: filepath.ToSlash(filepath.Clean(path))}
 }
@@ -118,19 +121,4 @@ func (a AbsPath) String() string {
 // Base returns the last element of the path.
 func (a AbsPath) Base() string {
 	return filepath.Base(a.path)
-}
-
-// Dir returns all but the last element of the path.
-func (a AbsPath) Dir() AbsPath {
-	return NewAbsPath(filepath.Dir(a.path))
-}
-
-// Join appends the given RelPath elements to the AbsPath.
-func (a AbsPath) Join(relPaths ...RelPath) AbsPath {
-	strs := make([]string, 0, len(relPaths)+1)
-	strs = append(strs, a.path)
-	for _, r := range relPaths {
-		strs = append(strs, r.path)
-	}
-	return NewAbsPath(filepath.Join(strs...))
 }
