@@ -32,6 +32,7 @@ const ConfigDirName = ".config/chezmoi"
 // Prefer chezmoi.toml for its support of comments and multiline strings;
 // chezmoi.yaml is also supported if preferred.
 // Note: chezmoi.json is also valid but lacks comment support.
+// Personal note: I prefer TOML over YAML for dotfile configs — cleaner syntax.
 const ConfigFileName = "chezmoi.toml"
 
 // ErrNotAGitRepo is returned when the source directory is not a git repository.
@@ -88,4 +89,10 @@ func IsLinux() bool {
 // IsFreeBSD reports whether the current OS is FreeBSD.
 func IsFreeBSD() bool {
 	return runtime.GOOS == "freebsd"
+}
+
+// IsUnix reports whether the current OS is a Unix-like system
+// (Linux, macOS, or FreeBSD). Useful for applying Unix-specific behavior.
+func IsUnix() bool {
+	return IsLinux() || IsDarwin() || IsFreeBSD()
 }
