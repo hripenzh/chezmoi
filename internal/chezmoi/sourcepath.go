@@ -115,11 +115,3 @@ func (s SourceRelPath) IsDir() bool {
 func (s SourceRelPath) String() string {
 	return s.relPath.String()
 }
-
-// AbsPath represents an absolute path.
-type AbsPath struct {
-	path string
-}
-
-// NewAbsPath returns a new AbsPath for the given path string.
-// filepath.Clean is appl
